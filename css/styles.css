@@ -21,6 +21,8 @@ header, main, nav, section, div, body{
     background-color: #fff;
     position: sticky;
     top: 0;    
+    container-name: header;
+    container-type: inline-size;
 }
 
 .header__nav{
@@ -91,6 +93,22 @@ header, main, nav, section, div, body{
 
 /* QUERIES HEADER */
 
+@container header (max-width: 600px){
+    .list__element-link, .signin--button, .login--button {
+        display: none;
+    }
+    .list__element-img-container{
+        min-width: 100px;
+        min-height: 50px;
+        background-image: url("../addons/images/logotipo.PNG");
+        background-size: cover;
+        
+    }
+    .nav__list{
+        padding: 0;
+    }
+}
+
 /* FIN HEADER */
 
 
@@ -106,6 +124,8 @@ header, main, nav, section, div, body{
     justify-content: center;
     gap: 140px;
     padding: 60px;
+    container-name: section;
+    container-type: inline-size;
 }
 
 
@@ -138,6 +158,16 @@ h1{
 
 /* SECCIÓN QUERIES*/
 
+@container section (max-width: 600px){
+    .start-section{
+        padding: 20px;
+        color: #005c53;
+    }
+
+    h1{
+        font-size: 30px;
+    }
+}
 
 /* FIN DE SECCIÓN */
 
