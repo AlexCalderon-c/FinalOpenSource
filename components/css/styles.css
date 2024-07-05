@@ -23,6 +23,7 @@ header, main, nav, section, div, body{
     top: 0;    
     container-name: header;
     container-type: inline-size;
+    z-index: 1000;
 }
 
 .header__nav{
@@ -46,7 +47,7 @@ header, main, nav, section, div, body{
 .list__element-img-container{
     min-width: 160px;
     min-height: 80px;
-    background-image: url("../addons/images/logotipo.PNG");
+    background-image: url("../../addons/images/logotipo.PNG");
     background-size: cover;
     
 }
@@ -70,16 +71,9 @@ header, main, nav, section, div, body{
 }
 
 .signin--button{
-    padding: 6px;
+    padding: 6px 12px;
     border-radius: 12px;
     background-color: #2e81c9;
-    color: #fff;
-}
-
-.login--button{    
-    padding: 6px;
-    border-radius: 12px;
-    border: 2px solid #2e81c9;
     color: #fff;
 }
 
@@ -100,7 +94,7 @@ header, main, nav, section, div, body{
     .list__element-img-container{
         min-width: 100px;
         min-height: 50px;
-        background-image: url("../addons/images/logotipo.PNG");
+        background-image: url("../../addons/images/logotipo.PNG");
         background-size: cover;
         
     }
@@ -115,7 +109,7 @@ header, main, nav, section, div, body{
 /* SECCIÓN PRINCIPAL*/
 
 .start-section{
-    background: linear-gradient(#0003, #0003), url("../addons/images/3417764.jpg");
+    background: linear-gradient(#0003, #0003), url("../../addons/images/3417764.jpg");
     color: #fff;
     min-width: 90vw;
     min-height: 80vh;
@@ -126,6 +120,7 @@ header, main, nav, section, div, body{
     padding: 60px;
     container-name: section;
     container-type: inline-size;
+    z-index: 10;
 }
 
 
