@@ -1,9 +1,14 @@
+@font-face {
+    font-family: "montserrat";
+    src: url("../../addons/fonts/static/Montserrat-Regular.ttf");
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Roboto', sans-serif;
+    font-family: montserrat;
 }
 
 body{
