@@ -4,17 +4,18 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cors = require('cors')
 
 const app = express();
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Middleware para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'static')));
 
-// Conectar a MySQL
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -30,7 +31,6 @@ db.connect(err => {
     console.log('Conectado a la base de datos MySQL');
 });
 
-// Crear la tabla de usuarios si no existe
 db.query(`
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,7 +48,6 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/../components/html/index.html')
 })
 
-// Ruta para registrar usuario
 app.post('/register', async (req, res) => {
     const { fullName, email, username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -64,7 +63,6 @@ app.post('/register', async (req, res) => {
 });
 
 
-// Ruta para iniciar sesión
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
@@ -87,8 +85,6 @@ app.post('/login', (req, res) => {
     });
 });
 
-
-// Ruta para obtener datos del usuario
 app.get('/user', verifyToken, (req, res) => {
     const query = 'SELECT fullName, email, username FROM users WHERE id = ?';
     db.query(query, [req.userId], (err, results) => {
@@ -100,7 +96,7 @@ app.get('/user', verifyToken, (req, res) => {
     });
 });
 
-// Middleware para verificar el token
+// token
 function verifyToken(req, res, next) {
     const token = req.headers['authorization'];
     if (!token) return res.status(401).send('Acceso denegado');

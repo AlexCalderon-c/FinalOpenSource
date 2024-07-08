@@ -1,8 +1,8 @@
 const mysql = require("mysql")
 
 //Conexión con POO
-class Connection{
-    constructor(host, database, user, password){
+class Connection{ //Creando una clase Connection
+    constructor(host, database, user, password){ //Creando un constructor con atributos
         this.host = host,
         this.database = database,
         this.user = user,
@@ -32,6 +32,7 @@ class Connection{
     }
 }
 
+//Creando el objeto
 conData = new Connection("localhost", "Prueba", "root", "")
 
 conData.validarCon();

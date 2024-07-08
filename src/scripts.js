@@ -15,11 +15,10 @@ async function iniciarSesion(event) {
             body: JSON.stringify({ email, password })
         });
 
-        const data = await res.json().catch(() => null); // Manejar JSON no válido o vacío
+        const data = await res.json().catch(() => null);
         if (res.ok) {
             localStorage.setItem('token', data.token);
             alert('Inicio de sesión exitoso');
-            // Redirigir a una página de usuario o actualizar la UI
         } else {
             alert('Error: ' + (data?.message || 'Error desconocido'));
         }
@@ -46,12 +45,15 @@ async function register(event) {
         });
 
         if (res.ok) {
-            alert('Usuario registrado exitosamente');
-            iniciarSesion();
-        } else {
             const data = await res.json();
-            alert('Error: ' + data.message);
+            localStorage.setItem('token', data.token);
+            alert('Inicio de sesión exitoso');
+            
+        } else {
+            const text = await res.text(); 
+            alert('Error: ' + (text || 'Error desconocido'));
         }
+        
     } catch (err) {
         console.error(err);
     }
