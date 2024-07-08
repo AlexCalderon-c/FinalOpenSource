@@ -1,14 +1,12 @@
 @font-face {
     font-family: "montserrat";
-    src: url("../../addons/fonts/static/Montserrat-Regular.ttf");
+    src: url("../../../addons/fonts/static/Montserrat-Regular.ttf");
 }
 
 h1, body{
     margin: 0;
     font-family: montserrat;
 }
-
-
 
 header, main, nav, section, div, body{
     box-sizing: border-box;
@@ -47,7 +45,7 @@ header, main, nav, section, div, body{
 .list__element-img-container{
     min-width: 160px;
     min-height: 80px;
-    background-image: url("../../addons/images/logotipo.PNG");
+    background-image: url("../../../addons/images/logotipo.PNG");
     background-size: cover;
     
 }
@@ -82,24 +80,44 @@ header, main, nav, section, div, body{
     
 }
 
+.menu--button{
+    display: none;
+}
+
 
 
 
 /* QUERIES HEADER */
 
 @container header (max-width: 600px){
+    .header__section{
+        background-color: #fff;
+        position: sticky;
+        top: 0;    
+        container-name: header;
+        container-type: inline-size;
+        z-index: 1000;
+    }
     .list__element-link, .signin--button, .login--button {
         display: none;
+    }
+    .menu--button{
+        display: block;
     }
     .list__element-img-container{
         min-width: 100px;
         min-height: 50px;
-        background-image: url("../../addons/images/logotipo.PNG");
+        background-image: url("../../../addons/images/logotipo.PNG");
         background-size: cover;
         
     }
     .nav__list{
         padding: 0;
+    }
+
+    .menu-button__icon{
+        font-size: 40px;
+        color: #2E81C9;
     }
 }
 
@@ -109,13 +127,14 @@ header, main, nav, section, div, body{
 /* SECCIÓN PRINCIPAL*/
 
 .start-section{
-    background: linear-gradient(#0003, #0003), url("../../addons/images/3417764.jpg");
+    background: linear-gradient(#0003, #0003), url("../../../addons/images/3417764.jpg");
     color: #fff;
     min-width: 90vw;
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 140px;
     padding: 60px;
     container-name: section;
@@ -155,12 +174,20 @@ h1{
 
 @container section (max-width: 600px){
     .start-section{
-        padding: 20px;
-        color: #005c53;
+        padding: 0;
+    }
+
+    .start-section__button{
+        margin: auto;
+    }
+
+    .start-section__desc{
+        text-align: center;
     }
 
     h1{
         font-size: 30px;
+        text-align: center;
     }
 }
 
@@ -207,6 +234,8 @@ h1{
     background-color: #005c53;
     padding: 50px;
     min-height: 80vh;
+    container-type: inline-size;
+    container-name: benefits;
 }
 
 
@@ -220,13 +249,13 @@ h1{
     grid-template-columns: 1fr 1fr;
     text-align: center;
     color: #fff;
-    padding: 20px;
-    gap: 20px;
+    padding: 60px;
+    gap: 50px;
 }
 
 .benefits__item{
     border: 3px solid #fff;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     font-size: 20px;
     font-weight: bold;
@@ -234,6 +263,46 @@ h1{
     justify-content: center;
     align-items: center;
 }
+
+/* QUERIES BENEFICIOS */
+
+@container benefits (max-width: 600px){
+    .benefits-section__container{
+        grid-template-columns: 1fr;
+        text-align: center;
+        color: #fff;
+        padding: 20px;
+        gap: 20px;
+    }
+    .benefits__title{
+        color: #fff;
+        font-size: 25px;   
+        text-align: center; 
+    }
+}
+
+/* FIN BENEFICIOS*/
+
+/* INICIO FOOTER */
+
+.footer__section-bar{
+    background-color: #2E81C9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #fff;
+    padding: 20px;
+}
+
+.footer__section-content{
+    padding: 20px;
+    background-color: #0b2b47;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: #fff;
+}
+
 
 
 

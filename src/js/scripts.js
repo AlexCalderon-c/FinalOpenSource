@@ -1,10 +1,10 @@
-document.getElementById("btn__iniciar-sesion").addEventListener("click", iniciarSesion);
-document.getElementById("btn__registrarse").addEventListener("click", register);
+document.getElementById("btn__login").addEventListener("click", iniciarSesion);
+document.getElementById("btn__register").addEventListener("click", register);
 
 async function iniciarSesion(event) {
     event.preventDefault();
-    const email = document.querySelector(".formulario__login input[type='text']").value;
-    const password = document.querySelector(".formulario__login input[type='password']").value;
+    const email = document.querySelector(".formulario__login input[placeholder='Correo Electronico']").value;
+    const password = document.querySelector(".formulario__login input[placeholder='Contraseña']").value;
 
     try {
         const res = await fetch('/login', {
@@ -15,25 +15,26 @@ async function iniciarSesion(event) {
             body: JSON.stringify({ email, password })
         });
 
-        const data = await res.json();
-        if (res.status === 200) {
+        const data = await res.json().catch(() => null); // Manejar JSON no válido o vacío
+        if (res.ok) {
             localStorage.setItem('token', data.token);
             alert('Inicio de sesión exitoso');
             // Redirigir a una página de usuario o actualizar la UI
         } else {
-            alert('Error: ' + data);
+            alert('Error: ' + (data?.message || 'Error desconocido'));
         }
     } catch (err) {
         console.error(err);
     }
 }
 
+
 async function register(event) {
     event.preventDefault();
-    const fullName = document.querySelector(".formulario__register input[placeholder='Nombre completo']").value;
-    const email = document.querySelector(".formulario__register input[placeholder='Correo Electronico']").value;
-    const username = document.querySelector(".formulario__register input[placeholder='Usuario']").value;
-    const password = document.querySelector(".formulario__register input[placeholder='Contraseña']").value;
+    const fullName = document.querySelector("#input-fname-register").value;
+    const email = document.querySelector("#input-mail-register").value;
+    const username = document.querySelector("#input-user-register").value;
+    const password = document.querySelector("#input-password-register").value;
 
     try {
         const res = await fetch('/register', {
@@ -44,11 +45,12 @@ async function register(event) {
             body: JSON.stringify({ fullName, email, username, password })
         });
 
-        if (res.status === 201) {
+        if (res.ok) {
             alert('Usuario registrado exitosamente');
             iniciarSesion();
         } else {
-            alert('Error al registrar usuario');
+            const data = await res.json();
+            alert('Error: ' + data.message);
         }
     } catch (err) {
         console.error(err);

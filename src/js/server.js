@@ -1,20 +1,25 @@
 const express = require('express');
+const path = require('path');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware para servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'static')));
 
 // Conectar a MySQL
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'yourpassword',
-    database: 'login_register_app'
+    password: '',
+    database: 'Prueba'
 });
 
 db.connect(err => {
@@ -39,6 +44,10 @@ db.query(`
     console.log('Tabla de usuarios lista');
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/../components/html/index.html')
+})
+
 // Ruta para registrar usuario
 app.post('/register', async (req, res) => {
     const { fullName, email, username, password } = req.body;
@@ -47,12 +56,13 @@ app.post('/register', async (req, res) => {
     const query = 'INSERT INTO users (fullName, email, username, password) VALUES (?, ?, ?, ?)';
     db.query(query, [fullName, email, username, hashedPassword], (err, result) => {
         if (err) {
-            res.status(400).send('Error al registrar usuario');
+            res.status(400).json({ message: 'Error al registrar usuario' });
         } else {
-            res.status(201).send('Usuario registrado');
+            res.status(201).json({ message: 'Usuario registrado' });
         }
     });
 });
+
 
 // Ruta para iniciar sesión
 app.post('/login', (req, res) => {
@@ -61,14 +71,14 @@ app.post('/login', (req, res) => {
     const query = 'SELECT * FROM users WHERE email = ?';
     db.query(query, [email], async (err, results) => {
         if (err) {
-            res.status(500).send('Error del servidor');
+            res.status(500).json({ message: 'Error del servidor' });
         } else if (results.length === 0) {
-            res.status(400).send('Usuario no encontrado');
+            res.status(400).json({ message: 'Usuario no encontrado' });
         } else {
             const user = results[0];
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                res.status(400).send('Contraseña incorrecta');
+                res.status(400).json({ message: 'Contraseña incorrecta' });
             } else {
                 const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
                 res.json({ token });
@@ -76,6 +86,7 @@ app.post('/login', (req, res) => {
         }
     });
 });
+
 
 // Ruta para obtener datos del usuario
 app.get('/user', verifyToken, (req, res) => {
