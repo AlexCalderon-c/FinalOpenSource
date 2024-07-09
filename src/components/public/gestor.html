@@ -4,9 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/gestorStyle.css">
+    <link rel="stylesheet" href="../static/gestorStyle.css">
 </head>
 <body>
+    <header class="header__section">
+        <nav class="header__nav">
+            <ul class="nav__list">
+                <li class="list__element">
+                    <div class="list__element-img-container">
+
+                    </div>
+                </li>                
+            </ul>
+            <ul class="nav__list sections--item">
+                <li class="list__element">
+                    <a href="#" class="list__element-link">Nosotros</a>
+                </li>
+                <li class="list__element">
+                    <a href="#" class="list__element-link">Cursos</a>
+                </li>
+                <li class="list__element signin--button">
+                    <a href="login.html" class="list__element-link ">Unirse</a>
+                </li>
+                <li class="menu--button">
+                    <label><span class="menu-button__icon">&#9776;</span>
+                        <input type="checkbox" id="menu-button">                        
+                    </label>
+                </li>
+            </ul>
+        </nav>
+        <div class="banner-section">
+            <span class="banner-section__account">
+                $00.00
+            </span>
+            <span class="banner-section__desc">
+                TU SALDO DISPONIBLE
+            </span>
+        </div>
+    </header>
+    <main class="bill-manager">
+        <div class="bill-manager__container">
+            <div class="bill-manager__container-content">
+                <div class="bill-manager__container-money">
+                </div>
+                <div class="bill-manager__container-title">
+                
+                </div>
+                <div class="bill-manager__container-desc">
+                
+                </div>
+            </div>
+            <div class="bill-manager__container-date">
+
+            </div>
+        </div>
+        <button class="bill-manager__add">
+            <p>AÑADIR GASTO +</p>
+        </button>
+    </main>
+
+
     
+    
+
+
+    <!--VENTANA MODAL -->
+
+<section class="modal">
+    <div class="modal-container">
+        <label for="">Valor</label>
+        <input type="number">
+        <label for="">Fecha</label>
+        <input type="date">
+        <label for="">Nombre del gasto</label>
+        <input type="text">
+        <label for="">Descripcion</label>
+        <textarea name="" id=""></textarea>
+        <a href="#" class="agregar_cerrar">Cerrar</a>
+        <button class="agregar_cerrar">Agregar</button>
+    </divccla>
+</section>
+
+<script src="../../gestor.js"></script>
 </body>
 </html>

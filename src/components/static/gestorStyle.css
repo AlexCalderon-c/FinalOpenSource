@@ -1,0 +1,186 @@
+@font-face {
+    font-family: "montserrat";
+    src: url("../../../addons/fonts/static/Montserrat-Regular.ttf");
+}
+
+h1, body{
+    margin: 0;
+    font-family: montserrat;
+}
+
+header, main, nav, section, div, body{
+    box-sizing: border-box;
+}
+
+.header__section{
+    background-color: #fff;
+    position: sticky;
+    top: 0;    
+    container-name: header;
+    container-type: inline-size;
+    z-index: 1000;
+}
+
+.header__nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.list__element{
+    list-style: none;
+    transition: background-color .5s;
+    
+}
+
+.list__element:hover{
+    background-color: #0003;
+    cursor: pointer;    
+}
+
+.list__element-img-container{
+    min-width: 160px;
+    min-height: 80px;
+    background-image: url("../../../addons/images/logotipo.PNG");
+    background-size: cover;
+    
+}
+
+.nav__list{
+    margin: 0;
+}
+
+.sections--item{    
+    display: flex;
+    flex-direction: row;
+    gap: 30px; 
+    margin-right: 30px;
+    align-items: center;
+    
+}
+
+.list__element-link{
+    text-decoration: none;
+    color: #2E81C9;    
+}
+
+.signin--button{
+    padding: 6px 12px;
+    border-radius: 12px;
+    background-color: #2e81c9;
+    color: #fff;
+}
+
+.signin--button a{
+    color: #fff;
+    
+}
+
+.menu--button{
+    display: none;
+}
+
+.banner-section{
+    background-color: #005c53;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.banner-section__account{
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.banner-section__desc{
+    font-size: 24px;
+}
+
+
+/* QUERIES HEADER */
+
+@container header (max-width: 600px){
+    .header__section{
+        background-color: #fff;
+        position: sticky;
+        top: 0;    
+        container-name: header;
+        container-type: inline-size;
+        z-index: 1000;
+    }
+    .list__element-link, .signin--button, .login--button {
+        display: none;
+    }
+    .menu--button{
+        display: block;
+    }
+    .list__element-img-container{
+        min-width: 100px;
+        min-height: 50px;
+        background-image: url("../../../addons/images/logotipo.PNG");
+        background-size: cover;
+        
+    }
+    .nav__list{
+        padding: 0;
+    }
+
+    .menu-button__icon{
+        font-size: 40px;
+        color: #2E81C9;
+    }
+}
+
+/* FINAL HEADER */
+
+/* INICIO BILL MANAGER */
+
+.bill-manager__add{
+    background-color: #fff;
+    
+}
+
+
+
+/* INICIO VENTANA MODAL */
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+}
+
+.modal-container{
+    width: 90%;
+    background-color: #fff;
+    max-width: 600px;
+    max-height: 90%;
+    margin: auto;
+    border-radius: 6px;
+    padding: 3em 2.5em;
+    display: grid;
+    gap: 0.2em;
+    place-items: center;
+    grid-auto-columns: 100%;
+}
+
+.agregar_cerrar{
+    text-decoration: none;
+    color: aquamarine;
+    background-color: #005c53;
+    padding: 1em 3em ;
+    border: 1px solid red;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 300;
+    transition: background-color .3s;
+}
+

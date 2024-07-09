@@ -45,7 +45,15 @@ db.query(`
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/../components/html/index.html')
+    res.sendFile(__dirname + '/components/public/index.html')
+})
+
+app.get('/form', (req, res) => {
+    res.sendFile(__dirname + '/components/public/login.html')
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/components/static/styles.css')
 })
 
 app.post('/register', async (req, res) => {
