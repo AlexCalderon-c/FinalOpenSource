@@ -1,6 +1,6 @@
 @font-face {
     font-family: "montserrat";
-    src: url("../../../addons/fonts/static/Montserrat-Regular.ttf");
+    src: url("../addons/fonts/static/Montserrat-Regular.ttf");
 }
 
 h1, body{
@@ -45,7 +45,7 @@ header, main, nav, section, div, body{
 .list__element-img-container{
     min-width: 160px;
     min-height: 80px;
-    background-image: url("../../../addons/images/logotipo.PNG");
+    background-image: url("../addons/images/logotipo.PNG");
     background-size: cover;
     
 }
@@ -107,7 +107,7 @@ header, main, nav, section, div, body{
     .list__element-img-container{
         min-width: 100px;
         min-height: 50px;
-        background-image: url("../../../addons/images/logotipo.PNG");
+        background-image: url("../addons/images/logotipo.PNG");
         background-size: cover;
         
     }
@@ -127,7 +127,7 @@ header, main, nav, section, div, body{
 /* SECCIÓN PRINCIPAL*/
 
 .start-section{
-    background: linear-gradient(#0003, #0003), url("../../../addons/images/3417764.jpg");
+    background: linear-gradient(#0003, #0003), url("../addons/images/3417764.jpg");
     color: #fff;
     min-width: 90vw;
     min-height: 80vh;
