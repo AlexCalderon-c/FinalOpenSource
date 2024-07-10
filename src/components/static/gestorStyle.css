@@ -111,6 +111,10 @@ header, main, nav, section, div, body{
     z-index: 10000;
 }
 
+.user-menu__container{
+    display: none;
+}
+
 .user-menu__dropdown a {
     padding: 10px 20px;
     text-decoration: none;
@@ -319,7 +323,7 @@ header, main, nav, section, div, body{
     margin-top: 50px;
     width: 90%;
     max-width: 550px;
-    max-height: 80%;
+    max-height: 90%;
     background-color: #fff;
     border-radius: 6px;
     padding: 3em 2.5em;
@@ -329,7 +333,9 @@ header, main, nav, section, div, body{
     gap: 1em;
 }
 .modal__title{
-    font-size: 2.5em;
+    font-size: 20px;
+    padding: 7px;
+    border-bottom: 2px solid #232323;
 }
 
 .modal__agregar{
@@ -346,7 +352,7 @@ header, main, nav, section, div, body{
     font-family: montserrat;
 }
 
-.modal__container-content{    
+.modal__container-content{
     display: grid;
     padding: 10px;
     grid-template-columns: 1fr 1fr;

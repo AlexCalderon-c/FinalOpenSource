@@ -89,6 +89,7 @@ header, main, nav, section, div, body{
 }
 
 .user-menu__button{
+    display: none;
     cursor: pointer;
     padding: 10px;
     background-color: #eee;
@@ -114,6 +115,10 @@ header, main, nav, section, div, body{
     display: none;
     flex-direction: column;
     z-index: 10000;
+}
+
+.user-menu__container{
+    display: none;
 }
 
 .user-menu__dropdown a {

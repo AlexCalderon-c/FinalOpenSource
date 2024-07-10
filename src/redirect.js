@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.username) {
                 signinButton.style.display = 'none';
+                userMenuButton.style.display = 'block';
                 userMenuContainer.style.display = 'block';
                 userMenuUsername.textContent = `Hola, ${data.username}`;
             }
