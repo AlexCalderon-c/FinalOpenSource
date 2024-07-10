@@ -18,7 +18,9 @@ async function iniciarSesion(event) {
         const data = await res.json().catch(() => null);
         if (res.ok) {
             localStorage.setItem('token', data.token);
+            localStorage.setItem('username', data.username);
             alert('Inicio de sesión exitoso');
+            window.location.href = '/';
         } else {
             alert('Error: ' + (data?.message || 'Error desconocido'));
         }
@@ -26,7 +28,6 @@ async function iniciarSesion(event) {
         console.error(err);
     }
 }
-
 
 async function register(event) {
     event.preventDefault();
@@ -46,14 +47,11 @@ async function register(event) {
 
         if (res.ok) {
             const data = await res.json();
-            localStorage.setItem('token', data.token);
-            alert('Inicio de sesión exitoso');
-            
+            alert('Registro exitoso');
         } else {
             const text = await res.text(); 
             alert('Error: ' + (text || 'Error desconocido'));
         }
-        
     } catch (err) {
         console.error(err);
     }

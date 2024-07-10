@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gestor de gastos</title>
     <link rel="stylesheet" href="../static/gestorStyle.css">
+    <script src="../../gestor.js"></script>
 </head>
 <body>
     <header class="header__section">
@@ -31,6 +32,18 @@
                         <input type="checkbox" id="menu-button">                        
                     </label>
                 </li>
+                <li class="user-menu__container">
+                    <button class="user-menu__button" id="user-menu-button">
+                        <span class="user-menu__username" id="user-menu-username">
+                        </span>
+                    </button>
+                    <div class="user-menu" id="user-menu">                
+                        <div class="user-menu__dropdown" id="user-menu-dropdown">
+                            <a href="#" id="logout-button" class="user-menu__item">Cerrar sesión</a>
+                            <a href="/bill-manager" id="bill-button" class="user-menu__item">Gestionar gastos</a>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </nav>
         <div class="banner-section">
@@ -53,17 +66,18 @@
     <main class="bill-manager">
         <div class="bill-manager__container">
             <div class="bill-manager__container-content">
-                <div class="bill-manager__container-money">
-                </div>
-                <div class="bill-manager__container-title">
-                
-                </div>
-                <div class="bill-manager__container-desc">
-                
-                </div>
+            <div class="bill-manager__container-money">
+                $00.00
+            </div>
+            <div class="bill-manager__container-title">
+                GASTOS
+            </div>
+            <div class="bill-manager__container-desc">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga aut recusandae id fugit quae ipsa, ut distinctio, nobis animi itaque illum unde mollitia consectetur omnis quaerat, totam pariatur. Eveniet, porro.
+            </div>
             </div>
             <div class="bill-manager__container-date">
-
+                10/07/2024
             </div>
         </div>
         <button class="bill-manager__add" >
@@ -83,16 +97,29 @@
 
     <section class="modal">
         <div class="modal__container">
-            <img src="../addons/images/logotipo.PNG" class="modal__img">
             <h2 class="modal__title">Agregar gasto</h2>
-            <label for="" class="modal__label">Valor</label>
-            <input type="number" class="modal__input">
-            <label for="" class="modal__label">Fecha</label>
-            <input type="date" class="modal__input">
-            <label for="" class="modal__label">Nombre del gasto</label>
-            <input type="text" class="modal__input">
-            <label for="" class="modal__label">Descripcion</label>
-            <textarea name="Descripcion" id="Descripcion"></textarea>
+            <div class="modal__container-content">
+                <div class="modal__container-content-item valor">
+                    <label for="" class="modal__label">Valor
+                    <input type="number" class="modal__input">
+                    </label>
+                </div>
+                <div class="modal__container-content-item fecha">
+                    <label for="" class="modal__label">Fecha
+                    <input type="date" class="modal__input">
+                    </label>
+                </div>
+                <div class="modal__container-content-item gasto">
+                    <label for="" class="modal__label">Nombre del gasto
+                    <input type="text" class="modal__input">
+                    </label>
+                </div>
+                <div class="modal__container-content-item desc">
+                    <label for="" class="modal__label">Descripcion
+                    <textarea name="Descripcion" class="modal__textbox" id="Descripcion"></textarea>
+                    </label>
+                </div>
+            </div>
 
             <div class="modal__container-buttons">
                 <button class="modal__agregar">Agregar</button>

@@ -54,6 +54,11 @@ app.get('/form', (req, res) => {
 app.get('../static/styles.css', (req, res) => {
     res.sendFile(__dirname + '/components/static/styles.css');
 });
+
+app.get('/bill-manager', (req, res) => {
+    res.sendFile(__dirname + '/components/public/gestor.html')
+})
+
 app.post('/register', async (req, res) => {
     const { fullName, email, username, password } = req.body;
     if (!fullName || !email || !username || !password) {
@@ -90,8 +95,12 @@ app.post('/login', (req, res) => {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
         const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, username: user.username });
     });
+});
+
+app.post('/logout', (req, res) => {
+    res.json({ message: 'Sesión cerrada' });
 });
 
 

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userMenu = document.getElementById('user-menu');
     const billButton = document.getElementById('bill-button');
 
-    if (token) {
+    if (signinButton && token) {
         fetch('/user', {
             method: 'GET',
             headers: {

@@ -84,6 +84,54 @@ header, main, nav, section, div, body{
     display: none;
 }
 
+.user-menu {
+    display: none;
+}
+
+.user-menu__button{
+    cursor: pointer;
+    padding: 10px;
+    background-color: #eee;
+    border: none;
+    border-left: 3px solid #2E81C9;
+    font-family: montserrat;
+    transition: background-color .5s, color .5s;
+}
+.user-menu__button:hover{
+    background-color: #2E81C9;
+    color: #fff;
+}
+
+
+.user-menu__dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 10000;
+}
+
+.user-menu__dropdown a {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.user-menu__dropdown a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-menu:hover .user-menu__dropdown {
+    display: flex;
+}
+
+
 
 
 

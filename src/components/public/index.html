@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Página Principal</title>
     <link rel="stylesheet" href="../static/styles.css">
-    <script src="../js/app.js"></script>
+    <script src="../../redirect.js" defer></script>
 </head>
 <body>
     <header class="header__section">
@@ -13,7 +13,6 @@
             <ul class="nav__list">
                 <li class="list__element">
                     <div class="list__element-img-container">
-
                     </div>
                 </li>                
             </ul>
@@ -24,15 +23,27 @@
                 <li class="list__element">
                     <a href="#" class="list__element-link">Cursos</a>
                 </li>
-                <li class="list__element signin--button">
-                    <a href="/form" class="list__element-link ">Unirse</a>
+                <li class="signin--button list__element">
+                    <a href="/form" class="list__element-link">Unirse</a>
                 </li>
                 <li class="menu--button">
                     <label><span class="menu-button__icon">&#9776;</span>
                         <input type="checkbox" id="menu-button">                        
                     </label>
                 </li>
-            </ul>
+                <li class="user-menu__container">
+                    <button class="user-menu__button" id="user-menu-button">
+                        <span class="user-menu__username" id="user-menu-username">
+                        </span>
+                    </button>
+                    <div class="user-menu" id="user-menu">                
+                        <div class="user-menu__dropdown" id="user-menu-dropdown">
+                            <a href="#" id="logout-button" class="user-menu__item">Cerrar sesión</a>
+                            <a href="/bill-manager" id="bill-button" class="user-menu__item">Gestionar gastos</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>            
         </nav>
     </header>
     <main class="main__section">
@@ -46,7 +57,6 @@
             <div class="start-section__button">
                 <input type="submit" value="Comenzar">
             </div>
-            
         </section>
         <section class="description-section">
             <div class="description-section__title">
@@ -97,7 +107,6 @@
                 Síguenos en nuestras redes sociales:
             </div>
             <div class="footer__section-bar-icons">
-
             </div>
         </div>
         <div class="footer__section-content">
@@ -114,7 +123,6 @@
                     Ayuda
                 </div>
                 <div class="footer__section-content-item-desc">
-                    
                 </div>
             </div>
             <div class="footer__section-content-item">
@@ -122,7 +130,6 @@
                     Contacto
                 </div>
                 <div class="footer__section-content-item-desc">
-                    
                 </div>
             </div>
         </div>
