@@ -34,12 +34,20 @@
             </ul>
         </nav>
         <div class="banner-section">
-            <span class="banner-section__account">
-                $00.00
-            </span>
-            <span class="banner-section__desc">
-                TU SALDO DISPONIBLE
-            </span>
+            <div class="banner-section__button">
+                <button class="bill-account__add" >
+                    <p>+</p>
+                </button>
+            </div>
+            <div class="banner-section__info">
+                <span class="banner-section__account">
+                    $00.00
+                </span>
+                <span class="banner-section__desc">
+                    TU SALDO DISPONIBLE
+                </span>
+            </div>
+            
         </div>
     </header>
     <main class="bill-manager">
@@ -58,9 +66,11 @@
 
             </div>
         </div>
-        <button class="bill-manager__add">
+        <button class="bill-manager__add" >
             <p>AÑADIR GASTO +</p>
         </button>
+
+        
     </main>
 
 
@@ -70,20 +80,30 @@
 
     <!--VENTANA MODAL -->
 
-<section class="modal">
-    <div class="modal-container">
-        <label for="">Valor</label>
-        <input type="number">
-        <label for="">Fecha</label>
-        <input type="date">
-        <label for="">Nombre del gasto</label>
-        <input type="text">
-        <label for="">Descripcion</label>
-        <textarea name="" id=""></textarea>
-        <a href="#" class="agregar_cerrar">Cerrar</a>
-        <button class="agregar_cerrar">Agregar</button>
-    </divccla>
-</section>
+
+    <section class="modal">
+        <div class="modal__container">
+            <img src="../addons/images/logotipo.PNG" class="modal__img">
+            <h2 class="modal__title">Agregar gasto</h2>
+            <label for="" class="modal__label">Valor</label>
+            <input type="number" class="modal__input">
+            <label for="" class="modal__label">Fecha</label>
+            <input type="date" class="modal__input">
+            <label for="" class="modal__label">Nombre del gasto</label>
+            <input type="text" class="modal__input">
+            <label for="" class="modal__label">Descripcion</label>
+            <textarea name="Descripcion" id="Descripcion"></textarea>
+
+            <div class="modal__container-buttons">
+                <button class="modal__agregar">Agregar</button>
+                <button class="modal__close">Cerrar</button>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script src="../../app.js"></script>
 
 <script src="../../gestor.js"></script>
 </body>
