@@ -59,6 +59,8 @@ app.get('/bill-manager', (req, res) => {
     res.sendFile(__dirname + '/components/public/gestor.html')
 })
 
+
+
 app.post('/register', async (req, res) => {
     const { fullName, email, username, password } = req.body;
     if (!fullName || !email || !username || !password) {
@@ -74,6 +76,7 @@ app.post('/register', async (req, res) => {
         res.status(201).json({ message: 'Usuario registrado' });
     });
 });
+
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -96,6 +99,22 @@ app.post('/login', (req, res) => {
         }
         const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
         res.json({ token, username: user.username });
+    });
+});
+
+app.post('/expense', async (req, res) => {
+    const { fullName, email, username, password } = req.body;
+    if (!fullName || !email || !username || !password) {
+        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const query = 'INSERT INTO users (fullName, email, username, password) VALUES (?, ?, ?, ?)';
+    db.query(query, [fullName, email, username, hashedPassword], (err, result) => {
+        if (err) {
+            console.error('Error al registrar usuario:', err);
+            return res.status(400).json({ message: 'Error al registrar usuario' });
+        }
+        res.status(201).json({ message: 'Usuario registrado' });
     });
 });
 

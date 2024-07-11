@@ -93,7 +93,7 @@
     
 
 
-    <!--VENTANA MODAL -->
+    <!--VENTANA MODAL AGREGAR GASTP -->
 
 
     <section class="modal">
@@ -102,29 +102,49 @@
             <div class="modal__container-content">
                 <div class="modal__container-content-item valor">
                     <label for="" class="modal__label">Valor
-                    <input type="number" class="modal__input">
+                    <input type="number" class="modal__input" id="modal-input-balance">
                     </label>
                 </div>
                 <div class="modal__container-content-item fecha">
                     <label for="" class="modal__label">Fecha
-                    <input type="date" class="modal__input">
+                    <input type="date" class="modal__input" id="modal-input-date">
                     </label>
                 </div>
                 <div class="modal__container-content-item gasto">
                     <label for="" class="modal__label">Nombre del gasto
-                    <input type="text" class="modal__input">
+                    <input type="text" class="modal__input" id="modal-input-title">
                     </label>
                 </div>
                 <div class="modal__container-content-item desc">
                     <label for="" class="modal__label">Descripcion
-                    <textarea name="Descripcion" class="modal__textbox" id="Descripcion"></textarea>
+                    <textarea name="Descripcion" class="modal__textbox" id="modal-input-desc"></textarea>
                     </label>
                 </div>
             </div>
 
             <div class="modal__container-buttons">
-                <button class="modal__agregar">Agregar</button>
+                <button class="modal__agregar" id="modal-agregar">Agregar</button>
                 <button class="modal__close">Cerrar</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!--VENTANA MODAL AGREGAR SALDO -->
+
+    <section class="modal--account">
+        <div class="modal__container">
+            <h2 class="modal__title">Agregar saldo</h2>
+            <div class="modal__container-content">
+                <div class="modal__container-content-item valor">
+                    <label for="" class="modal__label">Valor
+                    <input type="number" class="modal__input" id="modal-input-balance">
+                    </label>
+                </div>
+            </div>
+            <div class="modal__container-buttons">
+                <button class="modal__agregar--account" id="modal-agregar">Agregar</button>
+                <button class="modal__close--account">Cerrar</button>
             </div>
         </div>
 

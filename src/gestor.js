@@ -58,3 +58,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+async function ingresarGasto(event) {
+    event.preventDefault();
+    const date = document.querySelector("#modal-input-date").value;
+    const expense = document.querySelector("#modal-input-balance").value;
+    const title = document.querySelector("#modal-input-title").value;
+    const description = document.querySelector("#modal-input-desc").value;
+
+    try {
+        const res = await fetch('/expense', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json().catch(() => null);
+        if (res.ok) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('username', data.username);
+            alert('Inicio de sesión exitoso');
+            window.location.href = '/';
+        } else {
+            alert('Error: ' + (data?.message || 'Error desconocido'));
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+async function register(event) {
+    event.preventDefault();
+    const fullName = document.querySelector("#input-fname-register").value;
+    const email = document.querySelector("#input-mail-register").value;
+    const username = document.querySelector("#input-user-register").value;
+    const password = document.querySelector("#input-password-register").value;
+
+    try {
+        const res = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fullName, email, username, password })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            alert('Registro exitoso');
+        } else {
+            const text = await res.text(); 
+            alert('Error: ' + (text || 'Error desconocido'));
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}

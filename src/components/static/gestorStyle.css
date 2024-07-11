@@ -312,6 +312,7 @@ header, main, nav, section, div, body{
     transition: opacity .6s;
     z-index: 1000
 }
+
 .modal--show{
     opacity: 1;
     pointer-events: unset;
@@ -423,4 +424,65 @@ header, main, nav, section, div, body{
 
 .desc{
     grid-area: desc;
+}
+
+
+/* INICIO VENTANA MODAL */
+
+.modal--account{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s;
+    z-index: 1000
+}
+
+.modal--show__account{
+    opacity: 1;
+    pointer-events: unset;
+    transition: opacity .6s;
+}
+.modal__close--account{
+    text-decoration: none;
+    color: #fff;
+    background-color: #2E81C9;
+    padding: 1em 3em ;
+    border: 1px solid ;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 300;
+    transition: background-color .3s;
+    font-family: montserrat;
+}
+.modal__close--account:hover{
+    color: #fff;
+    background-color: #232323;
+    cursor: pointer;
+    
+}
+
+.modal__agregar--account{
+    text-decoration: none;
+    color: #fff;
+    background-color: #2E81C9;
+    padding: 1em 3em ;
+    border: 1px solid ;
+    border-radius: 6px;
+    font-weight: 300;
+    transition: background-color .3s;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: montserrat;
+}
+
+.modal__agregar--account:hover{
+    color: #fff;
+    background-color: #232323;
+    cursor: pointer;
+    
 }
