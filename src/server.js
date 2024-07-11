@@ -70,7 +70,30 @@ app.get('/current-balance', verifyToken, (req, res) => {
         if (results.length === 0) {
             return res.status(404).json({ message: 'No se encontró balance para el usuario' });
         }
-        res.json({ currentBalance: results[0].currentBalance });
+
+        const currentBalance = parseFloat(results[0].currentBalance);
+        if (isNaN(currentBalance)) {
+            return res.status(500).json({ message: 'Error: Balance no es un número válido' });
+        }
+
+        res.json({ initialBalance: currentBalance });
+    });
+});
+
+
+app.get('/initial-balance', verifyToken, (req, res) => {
+    const userId = req.userId;
+
+    const query = 'SELECT initialBalance FROM account WHERE id_user = ? ORDER BY idAccount DESC LIMIT 1';
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener el saldo inicial:', err);
+            return res.status(500).json({ message: 'Error al obtener el saldo inicial' });
+        }
+        if (results.length === 0) {
+            return res.json({ initialBalance: 0 });
+        }
+        res.json({ initialBalance: results[0].initialBalance });
     });
 });
 

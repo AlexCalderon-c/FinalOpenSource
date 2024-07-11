@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const signinButton = document.querySelector('.signin--button');
     const token = localStorage.getItem('token');
     const userMenuContainer = document.querySelector('.user-menu__container');
@@ -8,23 +8,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
     const userMenu = document.getElementById('user-menu');
     const billButton = document.getElementById('bill-button');
+    const addAccountButton = document.querySelector('.bill-account__add');
+    const balanceContainer = document.querySelector('.banner-section__account');
 
     if (token) {
-        fetch('/user', {
-            method: 'GET',
-            headers: {
-                'Authorization': token
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.username) {
+        try {
+            const userResponse = await fetch('/user', {
+                method: 'GET',
+                headers: {
+                    'Authorization': token
+                }
+            });
+            const userData = await userResponse.json();
+            if (userData.username) {
                 signinButton.style.display = 'none';
                 userMenuContainer.style.display = 'block';
-                userMenuUsername.textContent = `Hola, ${data.username}`;
+                userMenuUsername.textContent = `Hola, ${userData.username}`;
             }
-        })
-        .catch(error => console.error('Error:', error));
+
+            const balanceResponse = await fetch('/current-balance', {
+                method: 'GET',
+                headers: {
+                    'Authorization': token
+                }
+            });
+            const balanceData = await balanceResponse.json();
+            const initialBalance = balanceData.initialBalance;
+
+            if (initialBalance !== undefined && !isNaN(initialBalance)) {
+                balanceContainer.textContent = `$${initialBalance.toFixed(2)}`;
+                if (initialBalance > 0) {
+                    addAccountButton.style.display = 'none';
+                }
+            } else {
+                console.error('El balance inicial no es un número válido:', initialBalance);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     if (userMenuButton && userMenuDropdown) {
@@ -65,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalAccount = document.querySelector('.modal--account');
     const closeModalButton = document.querySelector('.modal__close--account');
     const addAccountButton = document.querySelector('.bill-account__add');
+    const balanceContainer = document.querySelector('.banner-section__account');
 
     addBalanceButton.addEventListener('click', async function () {
         const balanceValue = parseFloat(balanceInput.value);
@@ -93,10 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 balanceInput.value = '';
                 addAccountButton.style.display = 'none';  // Ocultar el botón después de agregar saldo exitosamente
 
-                // Actualizar el balance mostrado
-                const token = localStorage.getItem('token');
-                const balanceContainer = document.querySelector('.banner-section__account');
-
                 if (token) {
                     fetch('/current-balance', {
                         method: 'GET',
@@ -105,12 +123,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     })
                     .then(response => response.json())
-                    .then(data => {
-                        const currentBalance = parseFloat(data.currentBalance);
+                    .then(balanceData => {
+                        const currentBalance = parseFloat(balanceData.currentBalance);
                         if (!isNaN(currentBalance)) {
                             balanceContainer.textContent = `$${currentBalance.toFixed(2)}`;
                         } else {
-                            console.error('El balance actual no es un número:', data.currentBalance);
+                            console.error('El balance actual no es un número:', balanceData.currentBalance);
                         }
                     })
                     .catch(error => console.error('Error al obtener el balance actual:', error));
