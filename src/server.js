@@ -4,14 +4,13 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static('components'));
 app.use(express.static(__dirname));
 
@@ -44,21 +43,36 @@ db.query(`
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/components/public/index.html')
-})
+    res.sendFile(path.join(__dirname, 'components/public/index.html'));
+});
 
 app.get('/form', (req, res) => {
-    res.sendFile(__dirname + '/components/public/login.html')
-})
+    res.sendFile(path.join(__dirname, 'components/public/login.html'));
+});
 
 app.get('../static/styles.css', (req, res) => {
-    res.sendFile(__dirname + '/components/static/styles.css');
+    res.sendFile(path.join(__dirname, 'components/static/styles.css'));
 });
 
 app.get('/bill-manager', (req, res) => {
-    res.sendFile(__dirname + '/components/public/gestor.html')
-})
+    res.sendFile(path.join(__dirname, 'components/public/gestor.html'));
+});
 
+app.get('/current-balance', verifyToken, (req, res) => {
+    const userId = req.userId;
+
+    const query = 'SELECT currentBalance FROM account WHERE id_user = ? ORDER BY idAccount DESC LIMIT 1';
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener el balance actual:', err);
+            return res.status(500).json({ message: 'Error al obtener el balance actual' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'No se encontró balance para el usuario' });
+        }
+        res.json({ currentBalance: results[0].currentBalance });
+    });
+});
 
 
 app.post('/register', async (req, res) => {
@@ -76,7 +90,6 @@ app.post('/register', async (req, res) => {
         res.status(201).json({ message: 'Usuario registrado' });
     });
 });
-
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -102,26 +115,42 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.post('/expense', async (req, res) => {
-    const { fullName, email, username, password } = req.body;
-    if (!fullName || !email || !username || !password) {
-        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+app.post('/add-balance', verifyToken, (req, res) => {
+    const { initialBalance } = req.body;
+    const id_user = req.userId;
+
+    if (!initialBalance) {
+        return res.status(400).json({ message: 'El saldo es obligatorio' });
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const query = 'INSERT INTO users (fullName, email, username, password) VALUES (?, ?, ?, ?)';
-    db.query(query, [fullName, email, username, hashedPassword], (err, result) => {
+
+    // Verificar si el usuario ya tiene un saldo inicial registrado
+    const checkBalanceQuery = 'SELECT idAccount FROM account WHERE id_user = ?';
+    db.query(checkBalanceQuery, [id_user], (err, results) => {
         if (err) {
-            console.error('Error al registrar usuario:', err);
-            return res.status(400).json({ message: 'Error al registrar usuario' });
+            console.error('Error al verificar saldo existente:', err);
+            return res.status(500).json({ message: 'Error al verificar saldo existente' });
         }
-        res.status(201).json({ message: 'Usuario registrado' });
+
+        if (results.length > 0) {
+            return res.status(400).json({ message: 'Ya tienes un saldo registrado' });
+        }
+
+        // Si no hay saldo inicial, agregarlo
+        const insertBalanceQuery = 'INSERT INTO account (initialBalance, currentBalance, id_user) VALUES (?, ?, ?)';
+        db.query(insertBalanceQuery, [initialBalance, initialBalance, id_user], (err, result) => {
+            if (err) {
+                console.error('Error al agregar saldo:', err);
+                return res.status(500).json({ message: 'Error al agregar saldo' });
+            }
+            res.status(201).json({ message: 'Saldo agregado exitosamente' });
+        });
     });
 });
+
 
 app.post('/logout', (req, res) => {
     res.json({ message: 'Sesión cerrada' });
 });
-
 
 app.get('/user', verifyToken, (req, res) => {
     const query = 'SELECT fullName, email, username FROM users WHERE id = ?';
@@ -134,7 +163,6 @@ app.get('/user', verifyToken, (req, res) => {
     });
 });
 
-// token
 function verifyToken(req, res, next) {
     const token = req.headers['authorization'];
     if (!token) return res.status(401).send('Acceso denegado');

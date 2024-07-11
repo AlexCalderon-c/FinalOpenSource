@@ -59,61 +59,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const addBalanceButton = document.getElementById('modal-agregar-account');
+    const balanceInput = document.getElementById('modal-input-account');
+    const modalAccount = document.querySelector('.modal--account');
+    const closeModalButton = document.querySelector('.modal__close--account');
+    const addAccountButton = document.querySelector('.bill-account__add');
 
-async function ingresarGasto(event) {
-    event.preventDefault();
-    const date = document.querySelector("#modal-input-date").value;
-    const expense = document.querySelector("#modal-input-balance").value;
-    const title = document.querySelector("#modal-input-title").value;
-    const description = document.querySelector("#modal-input-desc").value;
+    addBalanceButton.addEventListener('click', async function () {
+        const balanceValue = parseFloat(balanceInput.value);
 
-    try {
-        const res = await fetch('/expense', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await res.json().catch(() => null);
-        if (res.ok) {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('username', data.username);
-            alert('Inicio de sesión exitoso');
-            window.location.href = '/';
-        } else {
-            alert('Error: ' + (data?.message || 'Error desconocido'));
+        if (isNaN(balanceValue) || balanceValue <= 0) {
+            alert('El saldo es obligatorio y debe ser un número positivo');
+            return;
         }
-    } catch (err) {
-        console.error(err);
-    }
-}
 
-async function register(event) {
-    event.preventDefault();
-    const fullName = document.querySelector("#input-fname-register").value;
-    const email = document.querySelector("#input-mail-register").value;
-    const username = document.querySelector("#input-user-register").value;
-    const password = document.querySelector("#input-password-register").value;
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('/add-balance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: JSON.stringify({ initialBalance: balanceValue })
+            });
 
-    try {
-        const res = await fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ fullName, email, username, password })
-        });
+            const data = await response.json();
 
-        if (res.ok) {
-            const data = await res.json();
-            alert('Registro exitoso');
-        } else {
-            const text = await res.text(); 
-            alert('Error: ' + (text || 'Error desconocido'));
+            if (response.ok) {
+                alert(data.message);
+                modalAccount.style.display = 'none';
+                balanceInput.value = '';
+                addAccountButton.style.display = 'none';  // Ocultar el botón después de agregar saldo exitosamente
+
+                // Actualizar el balance mostrado
+                const token = localStorage.getItem('token');
+                const balanceContainer = document.querySelector('.banner-section__account');
+
+                if (token) {
+                    fetch('/current-balance', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': token
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const currentBalance = parseFloat(data.currentBalance);
+                        if (!isNaN(currentBalance)) {
+                            balanceContainer.textContent = `$${currentBalance.toFixed(2)}`;
+                        } else {
+                            console.error('El balance actual no es un número:', data.currentBalance);
+                        }
+                    })
+                    .catch(error => console.error('Error al obtener el balance actual:', error));
+                }
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error al agregar saldo:', error);
+            alert('Error al agregar saldo');
         }
-    } catch (err) {
-        console.error(err);
-    }
-}
+    });
+
+    closeModalButton.addEventListener('click', () => {
+        modalAccount.style.display = 'none';
+    });
+});
