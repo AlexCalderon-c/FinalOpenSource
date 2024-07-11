@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de gastos</title>
+    
     <link rel="stylesheet" href="../static/gestorStyle.css">
     <script src="../../gestor.js"></script>
+    
 </head>
 <body>
     <header class="header__section">
@@ -54,7 +56,7 @@
             </div>
             <div class="banner-section__info">
                 <span class="banner-section__account">
-                    $1100.00
+                    Haga click en el botón para ingresar saldo
                 </span>
                 <span class="banner-section__desc">
                     TU SALDO DISPONIBLE
@@ -64,20 +66,18 @@
         </div>
     </header>
     <main class="bill-manager">
-        <div class="bill-manager__container">
+        <div class="bill-manager__container" data-expense-id="1">
             <div class="bill-manager__container-content">
-            <div class="bill-manager__container-money">
-                $00.00
-            </div>
-            <div class="bill-manager__container-title">
-                GASTOS
-            </div>
-            <div class="bill-manager__container-desc">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga aut recusandae id fugit quae ipsa, ut distinctio, nobis animi itaque illum unde mollitia consectetur omnis quaerat, totam pariatur. Eveniet, porro.
-            </div>
+                <div class="bill-manager__container-money">$00.00</div>
+                <div class="bill-manager__container-title">GASTOS</div>
+                <div class="bill-manager__container-desc">Descripción del gasto</div>
             </div>
             <div class="bill-manager__container-date">
-                10/07/2024
+                <span class="bill-manager__container-date-content">10/07/2024</span>
+                <div class="bill-manager__container-date-buttons">
+                    <button class="bill-manager__container-date-button button--modify">Modificar</button>
+                    <button class="bill-manager__container-date-button button--pay">Pagar</button>
+                </div>
             </div>
         </div>
         
@@ -86,10 +86,7 @@
         </button>
 
         
-    </main>
-
-
-    
+    </main>    
     
 
 
@@ -154,7 +151,5 @@
 
 
     <script src="../../app.js"></script>
-
-<script src="../../gestor.js"></script>
 </body>
 </html>

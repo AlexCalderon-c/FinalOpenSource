@@ -243,12 +243,15 @@ header, main, nav, section, div, body{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    justify-content: start;
     display: none;
     gap: 30px;  
     padding: 10px;
-    border: 2px solid #232323;
     border-radius: 10px;
-    max-width: 300px;
+    min-width: 150px;
+    max-width: 300px;    
+    min-height: 100px;
+    box-shadow: 0 5px 5px #aaa;
 }
 
 .bill-manager__container-content{
@@ -269,6 +272,14 @@ header, main, nav, section, div, body{
     font-size: 24px;
     font-weight: bold;
 }
+.bill-manager__container-date{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    justify-self: end;
+}
 .bill-manager__container-desc{
     max-height: 100px;
     overflow: hidden;
@@ -279,6 +290,36 @@ header, main, nav, section, div, body{
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     transition: max-height .8s, background-image .5s;
+}
+
+.bill-manager__container-date-button{
+    font-family: montserrat;
+    border-radius: 6px;
+    padding: 5px;
+    background-color: transparent;
+    border: none;    
+    border: 1px solid #232323;
+    transition: border .5s, background-color .5s, color .5s;
+}
+
+.bill-manager__container-date-button:hover{
+    background-color: #fff;
+    color: #232323;
+    cursor: pointer;
+    border: 1px solid #fff;
+}
+
+
+.button--modify{
+    background-color: #2E81C9;
+    border: 1px solid #2E81C9;
+    color: #fff;
+}
+
+.button--pay{
+    background-color: #358837;
+    border: 1px solid #358837;
+    color: #fff;
 }
 
 .bill-manager__container-desc::after {
@@ -428,8 +469,6 @@ header, main, nav, section, div, body{
     grid-area: desc;
 }
 
-
-/* INICIO VENTANA MODAL */
 
 .modal--account{
     position: fixed;

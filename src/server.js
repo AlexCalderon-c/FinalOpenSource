@@ -206,6 +206,32 @@ app.post('/logout', (req, res) => {
     res.json({ message: 'Sesión cerrada' });
 });
 
+app.post('/pay-expense', verifyToken, (req, res) => {
+    const { expenseId } = req.body;
+    const userId = req.userId;
+
+    if (!expenseId) {
+        return res.status(400).json({ message: 'ID de gasto es obligatorio' });
+    }
+
+    const deleteExpenseQuery = 'DELETE FROM expense WHERE idExpense = ?';
+    db.query(deleteExpenseQuery, [expenseId], (err, result) => {
+        if (err) {
+            console.error('Error al eliminar el gasto:', err);
+            return res.status(500).json({ message: 'Error al eliminar el gasto' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Gasto no encontrado o no autorizado' });
+        }
+
+        res.status(200).json({ message: 'Gasto eliminado exitosamente' });
+    });
+});
+
+
+
+
 app.get('/user', verifyToken, (req, res) => {
     const query = 'SELECT fullName, email, username FROM users WHERE id = ?';
     db.query(query, [req.userId], (err, results) => {

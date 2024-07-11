@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error al agregar saldo:', error);
             alert('Error al agregar saldo');
         }
+        
     });
 
     closeModalButton.addEventListener('click', () => {
@@ -177,35 +178,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
 
-            if (response.ok) {
-                alert(data.message);
-                // Crear un nuevo contenedor de gasto
-                const expenseContainer = document.createElement('div');
-                expenseContainer.className = 'bill-manager__container';
-                expenseContainer.style.display = 'flex';
-                expenseContainer.style.flexWrap = 'wrap';
-                expenseContainer.style.flexDirection = 'column';
-                expenseContainer.innerHTML = `
-                    <div class="bill-manager__container-content">
-                        <div class="bill-manager__container-money">$${count.toFixed(2)}</div>
-                        <div class="bill-manager__container-title">${nameExpense}</div>
-                        <div class="bill-manager__container-desc">${description}</div>
-                    </div>
-                    <div class="bill-manager__container-date">${date}</div>
-                `;
-                billManager.insertBefore(expenseContainer, billManager.querySelector('.bill-manager__add'));
+    const addExpenseButton = document.querySelector('.bill-manager__add');
+    const modal = document.querySelector('.modal');
+    const closeModalButton = document.querySelector('.modal__close');
 
-                // Limpiar los campos del modal
-                modalInputBalance.value = '';
-                modalInputDate.value = '';
-                modalInputTitle.value = '';
-                modalInputDesc.value = '';
+    addExpenseButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
 
-                // Ocultar el modal
-                document.querySelector('.modal').style.display = 'none';
-            } else {
-                alert(data.message);
-            }
+    closeModalButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    if (response.ok) {
+        alert(data.message);
+        // Crear un nuevo contenedor de gasto
+        const expenseContainer = document.createElement('div');
+        expenseContainer.className = 'bill-manager__container';
+        expenseContainer.style.display = 'flex';
+        expenseContainer.style.flexWrap = 'wrap';
+        expenseContainer.style.flexDirection = 'column';
+        expenseContainer.innerHTML = `
+            <div class="bill-manager__container-content">
+                <div class="bill-manager__container-money">$${count.toFixed(2)}</div>
+                <div class="bill-manager__container-title">${nameExpense}</div>
+                <div class="bill-manager__container-desc">${description}</div>
+            </div>
+            <div class="bill-manager__container-date">
+                <span class="bill-manager__container-date-content">${date}</span>                
+                <div class="bill-manager__container-date-buttons">
+                    <button class="bill-manager__container-date-button button--modify">
+                        Modificar
+                    </button>
+                    <button class="bill-manager__container-date-button button--pay">
+                        Pagar
+                    </button>
+                </div>
+            </div>
+        `;
+        billManager.insertBefore(expenseContainer, billManager.querySelector('.bill-manager__add'));
+
+        // Limpiar los campos del modal
+        modalInputBalance.value = '';
+        modalInputDate.value = '';
+        modalInputTitle.value = '';
+        modalInputDesc.value = '';
+
+        // Ocultar el modal
+        modal.style.display = 'none';
+    } else {
+        alert(data.message);
+    }
         } catch (error) {
             console.error('Error al agregar el gasto:', error);
             alert('Error al agregar el gasto');
