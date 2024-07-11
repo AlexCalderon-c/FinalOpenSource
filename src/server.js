@@ -169,7 +169,38 @@ app.post('/add-balance', verifyToken, (req, res) => {
         });
     });
 });
+app.post('/add-expense', verifyToken, (req, res) => {
+    const { nameExpense, description, count, date } = req.body;
+    const userId = req.userId;
 
+    if (!nameExpense || !description || !count || !date) {
+        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+    }
+
+    const getAccountQuery = 'SELECT idAccount FROM account WHERE id_user = ? ORDER BY idAccount DESC LIMIT 1';
+    db.query(getAccountQuery, [userId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener la cuenta del usuario:', err);
+            return res.status(500).json({ message: 'Error al obtener la cuenta del usuario' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'No se encontró una cuenta para el usuario' });
+        }
+
+        const accountId = results[0].idAccount;
+
+        const insertExpenseQuery = 'INSERT INTO expense (nameExpense, description, count, date, id_Account) VALUES (?, ?, ?, ?, ?)';
+        db.query(insertExpenseQuery, [nameExpense, description, count, date, accountId], (err, result) => {
+            if (err) {
+                console.error('Error al agregar el gasto:', err);
+                return res.status(500).json({ message: 'Error al agregar el gasto' });
+            }
+
+            res.status(201).json({ message: 'Gasto agregado exitosamente' });
+        });
+    });
+});
 
 app.post('/logout', (req, res) => {
     res.json({ message: 'Sesión cerrada' });

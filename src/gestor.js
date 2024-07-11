@@ -145,4 +145,70 @@ document.addEventListener('DOMContentLoaded', function () {
     closeModalButton.addEventListener('click', () => {
         modalAccount.style.display = 'none';
     });
+
+    const modalAgregarButton = document.getElementById('modal-agregar');
+    const modalInputBalance = document.getElementById('modal-input-balance');
+    const modalInputDate = document.getElementById('modal-input-date');
+    const modalInputTitle = document.getElementById('modal-input-title');
+    const modalInputDesc = document.getElementById('modal-input-desc');
+    const billManager = document.querySelector('.bill-manager');
+
+    modalAgregarButton.addEventListener('click', async () => {
+        const count = parseFloat(modalInputBalance.value);
+        const date = modalInputDate.value;
+        const nameExpense = modalInputTitle.value;
+        const description = modalInputDesc.value;
+
+        if (!nameExpense || !description || isNaN(count) || !date) {
+            alert('Todos los campos son obligatorios y el valor debe ser un número válido');
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('/add-expense', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: JSON.stringify({ nameExpense, description, count, date })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message);
+                // Crear un nuevo contenedor de gasto
+                const expenseContainer = document.createElement('div');
+                expenseContainer.className = 'bill-manager__container';
+                expenseContainer.style.display = 'flex';
+                expenseContainer.style.flexWrap = 'wrap';
+                expenseContainer.style.flexDirection = 'column';
+                expenseContainer.innerHTML = `
+                    <div class="bill-manager__container-content">
+                        <div class="bill-manager__container-money">$${count.toFixed(2)}</div>
+                        <div class="bill-manager__container-title">${nameExpense}</div>
+                        <div class="bill-manager__container-desc">${description}</div>
+                    </div>
+                    <div class="bill-manager__container-date">${date}</div>
+                `;
+                billManager.insertBefore(expenseContainer, billManager.querySelector('.bill-manager__add'));
+
+                // Limpiar los campos del modal
+                modalInputBalance.value = '';
+                modalInputDate.value = '';
+                modalInputTitle.value = '';
+                modalInputDesc.value = '';
+
+                // Ocultar el modal
+                document.querySelector('.modal').style.display = 'none';
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error al agregar el gasto:', error);
+            alert('Error al agregar el gasto');
+        }
+    });
 });

@@ -221,6 +221,7 @@ header, main, nav, section, div, body{
     gap: 30px;  
     padding: 20px;
 }
+
 .bill-manager__add{
     background-color: #fff;
     font-family: montserrat;
@@ -242,6 +243,7 @@ header, main, nav, section, div, body{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    display: none;
     gap: 30px;  
     padding: 10px;
     border: 2px solid #232323;

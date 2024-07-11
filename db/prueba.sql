@@ -42,6 +42,7 @@ CREATE TABLE `account` (
 
 CREATE TABLE `expense` (
   `idExpense` int(11) NOT NULL,
+  `nameExpense` varchar(50) DEFAULT NULL,
   `description` varchar(30) DEFAULT NULL,
   `count` decimal(15,2) DEFAULT NULL,
   `date` date DEFAULT NULL,
